@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "29321473892",
+    "project_id": "authkonfiapp",
+    "storage_bucket": "authkonfiapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29321473892:android:1ad8759a6d2d9327c89471",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "29321473892-72ues6lgq6ft2j58l0v5gv4q125omgve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app",
+            "certificate_hash": "45a77055857702c67428a629864e8a5ede0d33c4"
+          }
+        },
+        {
+          "client_id": "29321473892-i4l88ccrth4b783hob16natfb85d8k3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUilALvFHiQ5Gnn6HZf9Weo2srDGBhFW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29321473892-i4l88ccrth4b783hob16natfb85d8k3g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "29321473892-l51i39tiog1rju6rn4o4ujkqqf72v8sb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.app.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
