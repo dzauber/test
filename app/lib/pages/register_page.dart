@@ -2,6 +2,7 @@ import 'package:app/components/my_button.dart';
 import 'package:app/components/my_textfild.dart';
 import 'package:app/components/square_tile.dart';
 import 'package:app/services/auth_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,20 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final gemeindeController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    gemeindeController.dispose();
+    super.dispose();
+  }
 
   // Login method
   void signUserUp() async {
@@ -32,23 +47,41 @@ class _RegisterPageState extends State<RegisterPage> {
     );
     // try casting th user
     try {
-      if(passwordController.text == confirmPasswordController.text){
-         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-          );
+      if (passwordController.text == confirmPasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+
+        //user details
+        addUserDetails(
+          firstNameController.text.trim(),
+          lastNameController.text.trim(),
+          gemeindeController.text.trim(),
+          emailController.text.trim()
+        );
       } else {
         showErrorMessage("Passwort stimmt nicht Überein");
       }
-    
+
       // ignore: use_build_context_synchronously
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       // ignore: use_build_context_synchronously
-     // Navigator.pop(context);
+      // Navigator.pop(context);
       // show error massage
       showErrorMessage(e.code);
     }
+  }
+
+  Future addUserDetails(
+      String firstName, String lastname, String gemeinde, String email) async {
+    FirebaseFirestore.instance.collection('users').add({
+      'vorname': firstName,
+      'nachname': lastname,
+      'gemeinde': gemeinde,
+      'email': email,
+    });
   }
 
   // erro to user
@@ -97,14 +130,42 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
 
-              const SizedBox(height: 25),
+              const SizedBox(height: 10),
+
+              // FirstName
+              MyTextField(
+                controller: firstNameController,
+                hintText: 'Vorname',
+                obsureText: false,
+              ),
+
+              const SizedBox(height: 10),
+
+              // Lastname
+              MyTextField(
+                controller: lastNameController,
+                hintText: 'Nachname',
+                obsureText: false,
+              ),
+
+              const SizedBox(height: 10),
+
+              // Gemeinde
+              MyTextField(
+                controller: gemeindeController,
+                hintText: 'Gemeinde',
+                obsureText: false,
+              ),
+
+              const SizedBox(height: 10),
+
               // username email
               MyTextField(
                 controller: emailController,
                 hintText: 'Email',
                 obsureText: false,
               ),
-              
+
               const SizedBox(height: 10),
               // passwort
               MyTextField(
@@ -158,25 +219,25 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
 
-              const SizedBox(height: 50),
+              const SizedBox(height: 20),
               // googel + apple login
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   //googel
                   SquareTile(
-                     onTap: () => AuthService().signInWithGoogle(),
-                    imagePath: 'lib/images/google.png'),
+                      onTap: () => AuthService().signInWithGoogle(),
+                      imagePath: 'lib/images/google.png'),
 
                   const SizedBox(width: 25),
-                  
+
                   // ERST AUSKLAMMERN WENN APPLE GEWOLLT UND GEHT
                   //apple
-                 // SquareTile(onTap:  () { }, imagePath: 'lib/images/apple.png'),
+                  // SquareTile(onTap:  () { }, imagePath: 'lib/images/apple.png'),
                 ],
               ),
 
-              const SizedBox(height: 50),
+              const SizedBox(height: 20),
               // registrieren
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
