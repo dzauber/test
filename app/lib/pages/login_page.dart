@@ -1,9 +1,11 @@
 import 'package:app/components/my_button.dart';
 import 'package:app/components/my_textfild.dart';
 import 'package:app/components/square_tile.dart';
+import 'package:app/pages/forgot_pw_page.dart';
 import 'package:app/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -106,16 +108,29 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: 'Passwort',
                 obsureText: true,
               ),
+
               const SizedBox(height: 10),
               // passwort vergessen
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      'Passwort vergessen?',
-                      style: TextStyle(color: Colors.grey[600]),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return ForgaotPasswordPage();
+                          },
+                        ));
+                      },
+                      child: Text(
+                        'Passwort vergessen?',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -164,13 +179,18 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   //google
                   SquareTile(
-                      onTap: () => AuthService().signInWithGoogle(),
-                      imagePath: 'lib/images/google.png'),
+                    onTap: () {
+                      HapticFeedback.mediumImpact(); // Add haptic feedback
+                      AuthService().signInWithGoogle();
+                    },
+                    imagePath: 'lib/images/google.png',
+                  ),
 
-                  const SizedBox(width: 25),
-                  //apple
+                  // ERST AUSKLAMMERN WENN APPLE GEWOLLT UND GEHT
+                  // const SizedBox(width: 25),
+                  // apple
 
-                  SquareTile(onTap: () {}, imagePath: 'lib/images/apple.png'),
+                  // SquareTile(onTap: () {}, imagePath: 'lib/images/apple.png'),
                 ],
               ),
 
@@ -185,7 +205,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(width: 4),
                   GestureDetector(
-                    onTap: widget.onTap,
+                    onTap: () {
+                      HapticFeedback.heavyImpact(); // Add haptic feedback
+                      widget.onTap!();
+                    },
                     child: const Text(
                       'Jetzt Registrieren',
                       style: TextStyle(

@@ -169,14 +169,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     imagePath: 'lib/images/google.png'),
 
                   const SizedBox(width: 25),
+                  
+                  // ERST AUSKLAMMERN WENN APPLE GEWOLLT UND GEHT
                   //apple
-
-                  SquareTile(
-                     onTap:  () {
-
-                      
-                    },
-                    imagePath: 'lib/images/apple.png'),
+                 // SquareTile(onTap:  () { }, imagePath: 'lib/images/apple.png'),
                 ],
               ),
 

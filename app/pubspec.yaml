@@ -42,6 +42,7 @@ dependencies:
   url_launcher: ^6.1.14
   syncfusion_flutter_pdfviewer: ^23.1.40
   qr_code_scanner: ^1.0.1
+  cloud_firestore: ^4.10.0
 
 dev_dependencies:
   flutter_test:

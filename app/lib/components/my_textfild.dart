@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyTextField extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -18,6 +19,9 @@ class MyTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: TextField(
+        onTap: () {
+          HapticFeedback.vibrate();
+        },
         controller: controller,
         obscureText: obsureText,
         decoration: InputDecoration(
